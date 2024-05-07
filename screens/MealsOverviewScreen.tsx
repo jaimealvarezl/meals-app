@@ -1,6 +1,6 @@
 import { ListRenderItemInfo } from '@react-native/virtualized-lists/Lists/VirtualizedList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { RootStackParamList } from './RootNavigationTyes';
@@ -17,7 +17,7 @@ const MealsOverviewScreen = ({ route, navigation }: MealsOverviewScreenProps) =>
     return MEALS.filter((meal) => meal.categoryIds.includes(categoryId));
   }, [categoryId]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const category = CATEGORIES.find((c) => c.id === categoryId);
     if (category) {
       navigation.setOptions({

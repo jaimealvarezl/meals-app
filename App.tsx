@@ -10,7 +10,7 @@ import { RootStackParamList } from './screens/RootNavigationTyes';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const App = () => (
   <>
-    <StatusBar style="dark" />
+    <StatusBar style="light" />
     <NavigationContainer>
       <Stack.Navigator
         id="root"
