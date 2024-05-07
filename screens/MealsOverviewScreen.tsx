@@ -29,7 +29,6 @@ const MealsOverviewScreen = ({ route }: MealsOverviewScreenProps) => {
 
   return (
     <View style={styles.container}>
-      <Text>Meals Overview Screen - {categoryId}</Text>
       <FlatList
         data={displayedMeals}
         renderItem={renderMealItem}
