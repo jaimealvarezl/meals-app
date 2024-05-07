@@ -31,7 +31,16 @@ const App = () => (
           }}
           component={CategoriesScreen}
         />
-        <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
+        <Stack.Screen
+          name="MealsOverview"
+          component={MealsOverviewScreen}
+          // options={({ route, navigation }) => {
+          //   const { categoryId } = route.params;
+          //   return {
+          //     title: categoryId,
+          //   };
+          // }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   </>
