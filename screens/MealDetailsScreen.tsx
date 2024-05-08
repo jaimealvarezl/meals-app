@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useMemo } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useLayoutEffect, useMemo } from 'react';
+import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { RootStackParamList } from './RootNavigationTyes';
 import List from '../components/MealDetail/List';
@@ -10,12 +10,23 @@ import { MEALS } from '../data/dummy-data';
 
 type MealDetailsScreenProps = NativeStackScreenProps<RootStackParamList, 'MealDetail'>;
 
-const MealDetailsScreen = ({ route }: MealDetailsScreenProps) => {
+const MealDetailsScreen = ({ route, navigation }: MealDetailsScreenProps) => {
   const mealId = route.params.mealId;
 
   const selectedMeal = useMemo(() => {
     return MEALS.find((meal) => mealId === meal.id);
   }, [mealId]);
+
+  const headerButtonPressHandler = () => {
+    // navigation.navigate('Categories');
+    console.log('Pressed');
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button title="Tap me" onPress={headerButtonPressHandler} />,
+    });
+  }, [navigation]);
 
   if (!selectedMeal) {
     return null;
