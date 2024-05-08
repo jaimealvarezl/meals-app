@@ -1,13 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
 
 import CategoriesScreen from './screens/CategoriesScreen';
+import MealDetailsScreen from './screens/MealDetailsScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import { RootStackParamList } from './screens/RootNavigationTyes';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
 const App = () => (
   <>
     <StatusBar style="light" />
@@ -41,12 +42,9 @@ const App = () => (
           //   };
           // }}
         />
+        <Stack.Screen name="MealDetail" component={MealDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   </>
 );
 export default App;
-
-const styles = StyleSheet.create({
-  container: {},
-});

@@ -1,7 +1,7 @@
 import { ListRenderItemInfo } from '@react-native/virtualized-lists/Lists/VirtualizedList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect, useLayoutEffect, useMemo } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { useLayoutEffect, useMemo } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import { RootStackParamList } from './RootNavigationTyes';
 import MealItem from '../components/MealItem';
@@ -28,6 +28,7 @@ const MealsOverviewScreen = ({ route, navigation }: MealsOverviewScreenProps) =>
 
   const renderMealItem = ({ item }: ListRenderItemInfo<Meal>) => (
     <MealItem
+      id={item.id}
       imageUrl={item.imageUrl}
       title={item.title}
       duration={item.duration}
