@@ -1,8 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useLayoutEffect, useMemo } from 'react';
-import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { RootStackParamList } from './RootNavigationTyes';
+import IconButton from '../components/IconButton';
 import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
 import MealDetails from '../components/MealDetails';
@@ -24,7 +25,9 @@ const MealDetailsScreen = ({ route, navigation }: MealDetailsScreenProps) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Button title="Tap me" onPress={headerButtonPressHandler} />,
+      headerRight: () => (
+        <IconButton icon="star" color="white" onPress={headerButtonPressHandler} />
+      ),
     });
   }, [navigation]);
 
