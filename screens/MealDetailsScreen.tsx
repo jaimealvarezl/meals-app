@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useLayoutEffect, useMemo } from 'react';
+import { useCallback, useContext, useLayoutEffect, useMemo } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { RootStackParamList } from './RootNavigationTyes';
@@ -8,28 +8,36 @@ import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
 import MealDetails from '../components/MealDetails';
 import { MEALS } from '../data/dummy-data';
+import { FavoritesContext } from '../store/context/favorites-context';
 
 type MealDetailsScreenProps = NativeStackScreenProps<RootStackParamList, 'MealDetail'>;
 
 const MealDetailsScreen = ({ route, navigation }: MealDetailsScreenProps) => {
   const mealId = route.params.mealId;
+  const { ids, addFavorite, removeFavorite } = useContext(FavoritesContext);
 
-  const selectedMeal = useMemo(() => {
-    return MEALS.find((meal) => mealId === meal.id);
-  }, [mealId]);
+  const selectedMeal = useMemo(() => MEALS.find((meal) => mealId === meal.id), [mealId]);
+  const mealIsFavorite = useMemo(() => ids.includes(mealId), [ids, mealId]);
 
-  const headerButtonPressHandler = () => {
-    // navigation.navigate('Categories');
-    console.log('Pressed');
-  };
+  const changeFavoriteStatusHandler = useCallback(() => {
+    if (mealIsFavorite) {
+      removeFavorite(mealId);
+    } else {
+      addFavorite(mealId);
+    }
+  }, [addFavorite, mealId, mealIsFavorite, removeFavorite]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton icon="star" color="white" onPress={headerButtonPressHandler} />
+        <IconButton
+          icon={mealIsFavorite ? 'star' : 'star-outline'}
+          color="white"
+          onPress={changeFavoriteStatusHandler}
+        />
       ),
     });
-  }, [navigation]);
+  }, [changeFavoriteStatusHandler, mealIsFavorite, navigation]);
 
   if (!selectedMeal) {
     return null;

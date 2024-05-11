@@ -9,6 +9,7 @@ import FavoritesScreen from './screens/FavoritesScreen';
 import MealDetailsScreen from './screens/MealDetailsScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import { RootStackParamList } from './screens/RootNavigationTyes';
+import FavoritesContextProvider from './store/context/favorites-context';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
@@ -54,36 +55,38 @@ function DrawerNavigator() {
 const App = () => (
   <>
     <StatusBar style="light" />
-    <NavigationContainer>
-      <Stack.Navigator
-        id="root"
-        initialRouteName="Drawer"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#351401',
-          },
-          contentStyle: {
-            backgroundColor: '#3f2f2f',
-          },
-          headerTintColor: 'white',
-        }}>
-        <Stack.Screen
-          name="Drawer"
-          component={DrawerNavigator}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
-        <Stack.Screen
-          name="MealDetail"
-          component={MealDetailsScreen}
-          options={{
-            title: 'About the Meal',
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <FavoritesContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          id="root"
+          initialRouteName="Drawer"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#351401',
+            },
+            contentStyle: {
+              backgroundColor: '#3f2f2f',
+            },
+            headerTintColor: 'white',
+          }}>
+          <Stack.Screen
+            name="Drawer"
+            component={DrawerNavigator}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
+          <Stack.Screen
+            name="MealDetail"
+            component={MealDetailsScreen}
+            options={{
+              title: 'About the Meal',
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </FavoritesContextProvider>
   </>
 );
 export default App;
